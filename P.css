@@ -2,14 +2,15 @@
 
 :root {
   --green: #27ae60;
-  --black: #192a56;
+  --black: #4d42e9;
   --light-color: #666;
+  --sky: #ffffff;
   --box-shadow: 0.1rem 1.5rem rgba(0, 0, 0, 0.1);
 }
 
 * {
   font-family: Georgia, "Times New Roman", Times, serif;
-  margin: 0;
+  margin:0;
   padding: 0;
   box-sizing: border-box;
   text-decoration: none;
@@ -17,15 +18,69 @@
   border: none;
   text-transform: capitalize;
   transition: all 0.2s linear;
+  
+  
+}
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 30px 0;
+  background-color: #a5c9e6;
+}
+form {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size:medium;
+  font: weight 800px;
+  margin: 20px;
+  padding: 20px;
+  background-color: #e0e8ee;
+  box-sizing: border-box;
+  text-decoration: none;
+  outline: none;
+  border: solid;
+  border-radius: 20px;
+  text-transform: capitalize;
+  transition: all 0.2s linear;
+  
+  
+}
+input{
+  background-color: #ffffff;
+  padding: 0%;
+  border: none;
+  border-radius: 20px;
+}
+
+input box{
+  background-color: #ffffff;
+  padding: 0%;
+  border: none;
+  border-radius: 20px;
 }
 html {
   font-size: 70%;
   overflow-x: hidden;
   scroll-padding-top: 10rem;
   scroll-behavior: smooth;
+  background-color: #6ab04c;
+  
+}
+#dep {
+  margin-top: 1rem;
+  display: inline-block;
+ font-size: 1.1rem;
+ color: rgb(11, 3, 19);
+ background: var(--sky);
+  border-radius: 20rem;
+  text-decoration-color: black;
+ cursor: pointer;
+ padding: .8rem .3rem;
 }
 section {
   padding: 2rem 9%;
+
 }
 section: :nth-child(even) {
   background: #eee;
@@ -45,15 +100,16 @@ section: :nth-child(even) {
 
   text-transform: uppercase;
 }
-.btn {
+
+.btn{
   margin-top: 1rem;
   display: inline-block;
-  font-size: 1.7rem;
-  color: #fff;
-  background: var(--black);
-  border-radius: 0.5rem;
-  cursor: pointer;
-  padding: 0.8rem 0.3rem;
+ font-size: 1.7rem;
+ color: rgb(20, 48, 206);
+ background: var(--black);
+  border-radius: 20rem;
+ cursor: pointer;
+ padding: .8rem .3rem;
 }
 .btn:hover {
   background-color: var(--green);

@@ -1,6 +1,21 @@
 <?php
-// Start the session
 session_start();
+include 'conn.php';
+if(isset($_POST['submit'])){
+  $username =$_POST['username'];
+
+  
+  $password=$_POST['password'];
+  $sql = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
+  $result = mysqli_query($conn,$sql);
+  if($result){
+    $_SESSION['username'] = $username;
+    header("location: P1.php");
+  }else{
+    die(mysqli_error($conn));
+  }
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -79,7 +94,8 @@ session_start();
                           </div>
                             <p class="text-right"><a href="">Forgot Password ?</a></p>
                             <button type="submit" name='submit' class="btn btn-primary btn-block my-3" style="padding: 20px 0; border-radius: 8px;">Login</button>
-                            <p>Don't have an account <a href="rose.html">SIGNUP</a></p>
+                            <p>Login as an admin<a href="login.php">Login</a></p>
+                            <p>Don't have an account <a href="signup.php">SIGNUP</a></p>
                             <div class="g-signin2" data-onsuccess="onSignIn" style="width: 400px; height: 60px; text-align: left"></div>
                         </form>
                     </div>

@@ -1,49 +1,22 @@
 <?php
-// Start the session
 session_start();
-
-// Check if the user is already logged in
-if (isset($_SESSION['admin_id'])) {
-    // Redirect to the main page or dashboard
-    header('Location: index.php');
-    exit();
-}
-
-include 'Inc/db_connection.php'; 
-
+include 'conn.php';
 if(isset($_POST['submit'])){
-    echo "faileds";
-
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-
-    // You should use prepared statements to prevent SQL injection
-    $query = "SELECT * FROM admins WHERE username = ? AND password = ?";
-    $stmt = mysqli_prepare($conn, $query);
-    mysqli_stmt_bind_param($stmt, "ss", $username, $password);
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
-
-    // Check if the query returned any rows
-    if(mysqli_num_rows($result) > 0){
-        // Fetch user details
-        $user = mysqli_fetch_assoc($result);
-
-        // Store user_id in session
-        $_SESSION['admin_id'] = $user['admin_id'];
-
-        // Redirect to wp.php after successful login
-        header('Location: admin.php');
-        exit(); // Terminate script execution after redirection
-    }
-    else{
-        // Display error message using JavaScript alert
-        echo '<script>alert("User does not exist");</script>';
-    }
+ 
+    $admin = $_POST['username'];
+  $password=$_POST['password'];
+  $sql = "SELECT * FROM admin WHERE username = '$admin' AND password = '$password'";
+  $result = mysqli_query($conn,$sql);
+  if($result){
+    $_SESSION['admin'] = $admin;
+    header("location: admindash.php");
+  }else{
+    die(mysqli_error($conn));
+  }
 }
 ?>
 
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -54,7 +27,7 @@ if(isset($_POST['submit'])){
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-8rc+yY9mWGUgkeWuf6Vjn/Td4UPzQqpQ5OU8KLz8sZy53N7LJ1FPT5qFnlYw3cG/XYVJWcO1h7HkkHPh1W/nGA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Font Awesome -->
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script> <!-- Add this line for reCAPTCHA -->
+
   
   <!-- Link Swiper's CSS -->
   <link
@@ -105,12 +78,13 @@ if(isset($_POST['submit'])){
             <div class="col-md-6 offset-md-3">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title text-center">Admin Login</h5>
+                        <h5 class="card-title text-center"> Admin Login</h5>
                         <form action="" method="post">
-                            <div class="py-3">
+                        <div class="py-3">
                                 <label for="">Username</label>
                                 <input type="text" name="username" id="" placeholder="Enter Username">
                             </div>
+                         
                             <div class="py-3">
                                 <label for="">Password</label>
                                 <input type="password" name="password" id="" placeholder="Enter Password">
@@ -118,7 +92,11 @@ if(isset($_POST['submit'])){
                             <div class="form_group">
                               <div class="g-recaptcha" data-sitekey="6LdVFZYpAAAAANPSensxyMxjoOJOYcFh8lcMbqwb"></div> <!-- Add reCAPTCHA widget here -->
                           </div>
+                            
                             <button type="submit" name='submit' class="btn btn-primary btn-block my-3" style="padding: 20px 0; border-radius: 8px;">Login</button>
+                            <p>Login as a user<a href="login.php">Login</a></p>
+                            <p>Don't have an account <a href="signup.php">SIGNUP</a></p>
+                            <div class="g-signin2" data-onsuccess="onSignIn" style="width: 400px; height: 60px; text-align: left"></div>
                         </form>
                     </div>
                 </div>
